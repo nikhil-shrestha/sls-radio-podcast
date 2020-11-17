@@ -77,10 +77,9 @@ custom:
 
 resources:
   # API Gateway Errors
-  - ${file(../../resources/api-gateway-errors.yml)}
+  - ${file(../../resources/ApiGatewayError.yml)}
 
-  - Resources:
-      RadioPodcastTable: ${file(../../resources/RadioPodcastTable.yml):RadioPodcastTable}
+  - ${file(../../resources/RadioPodcastTable.yml)}
 
   - Outputs:
       ApiGatewayRestApiId:
