@@ -1,0 +1,107 @@
+service:
+  name: radio-service
+
+plugins:
+  - serverless-bundle
+  - serverless-pseudo-parameters
+
+package:
+  individually: true
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  memorySize: 256
+  stage: ${opt:stage, 'dev'}
+  region: us-west-1
+  environment:
+    TABLE_NAME: ${self:custom.RadioPodcastTable.name}
+  iamRoleStatements:
+    - ${file(../../iam/RadioPodcastIAM.yml):RadioPodcastIAM}
+  versionFunctions: false # optional, default is true
+
+functions:
+  listHistory:
+    handler: src/listHistory.handler
+    events:
+      - http:
+          method: GET
+          path: /radio/history/{uid}
+          cors: true
+
+  createHistory:
+    handler: src/createHistory.handler
+    events:
+      - http:
+          method: POST
+          path: /radio/history/set
+          cors: true
+
+  deleteHistory:
+    handler: src/deleteHistory.handler
+    events:
+      - http:
+          method: POST
+          path: /radio/history/clear
+          cors: true
+
+  listHearted:
+    handler: src/listHearted.handler
+    events:
+      - http:
+          method: GET
+          path: /radio/heart/{uid}
+          cors: true
+
+  createHearted:
+    handler: src/createHearted.handler
+    events:
+      - http:
+          method: POST
+          path: /radio/heart/set
+          cors: true
+
+  deleteHearted:
+    handler: src/deleteHearted.handler
+    events:
+      - http:
+          method: POST
+          path: /radio/heart/clear
+          cors: true
+
+custom:
+  stage: ${opt:stage, self:provider.stage}  
+  RadioPodcastTable:
+    name: !Ref RadioPodcastTable
+    arn: !GetAtt RadioPodcastTable.Arn
+
+resources:
+  # API Gateway Errors
+  - ${file(../../resources/api-gateway-errors.yml)}
+
+  - Resources:
+      RadioPodcastTable: ${file(../../resources/RadioPodcastTable.yml):RadioPodcastTable}
+  
+  - Outputs:
+      ApiGatewayRestApiId:
+        Value:
+          Ref: ApiGatewayRestApi
+        Export:
+          Name: ${self:custom.stage}-ExtApiGatewayRestApiId
+    
+      ApiGatewayRestApiRootResourceId:
+        Value:
+           Fn::GetAtt:
+            - ApiGatewayRestApi
+            - RootResourceId 
+        Export:
+          Name: ${self:custom.stage}-ExtApiGatewayRestApiRootResourceId
+
+  - Outputs:
+      RadioPodcastTableArn:
+        Value:
+          Fn::GetAtt:
+            - RadioPodcastTable
+            - Arn
+        Export:
+          Name: ${self:custom.stage}-RadioPodcastTableArn

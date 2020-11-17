@@ -1,0 +1,58 @@
+service:
+  name: podcast-service
+
+plugins:
+  - serverless-bundle
+  - serverless-pseudo-parameters
+
+package:
+  individually: true
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  memorySize: 256
+  stage: ${opt:stage, 'dev'}
+  region: us-west-1
+
+  apiGateway:
+    restApiId:
+      'Fn::ImportValue': ${self:custom.stage}-ExtApiGatewayRestApiId
+    restApiRootResourceId:
+      'Fn::ImportValue': ${self:custom.stage}-ExtApiGatewayRestApiRootResourceId
+
+  environment:
+    TABLE_NAME: RadioPodcast_${self:custom.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:BatchWriteItem
+      # Restrict our IAM role permissions to
+      # the specific table for the stage
+      Resource:
+        - 'Fn::ImportValue': ${self:custom.stage}-RadioPodcastTableArn
+  versionFunctions: false # optional, default is true
+
+functions:
+  saveGenre:
+    handler: src/saveGenre.handler
+
+  savePodcast:
+    handler: src/savePodcast.handler
+    memorySize: 1024 # optional, in MB, default is 1024
+    timeout: 120 # optional, in seconds, default is 6
+
+  saveEpisode:
+    handler: src/saveEpisode.handler
+    memorySize: 1024
+    timeout: 120
+  
+custom:
+  stage: ${opt:stage, self:provider.stage}  

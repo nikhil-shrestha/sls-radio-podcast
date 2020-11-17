@@ -1,0 +1,13 @@
+RadioPodcastIAM:
+  Effect: Allow
+  Action:
+    - dynamodb:PutItem
+    - dynamodb:Scan
+    - dynamodb:GetItem
+    - dynamodb:UpdateItem
+    - dynamodb:Query
+    - dynamodb:DeleteItem
+    - dynamodb:BatchWriteItem
+    - dynamodb:BatchGetItem
+  Resource:
+    - ${self:custom.RadioPodcastTable.arn}

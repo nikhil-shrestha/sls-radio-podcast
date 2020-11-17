@@ -1,0 +1,101 @@
+{
+  "text": "Podcast",
+  "children": [
+    {
+      "title": "Education Podcasts",
+      "id": "c100001412"
+    },
+    {
+      "title": "Arts & Culture Podcasts",
+      "id": "c100000886"
+    },
+    {
+      "title": "Business & Economics Podcasts",
+      "id": "c100000655"
+    },
+    {
+      "title": "Veteran's Day",
+      "id": "c100000440"
+    },
+    {
+      "title": "Comedy Podcasts",
+      "id": "c100000625"
+    },
+    {
+      "title": "Comedy",
+      "id": "c100002119"
+    },
+    {
+      "title": "Food & Cooking Podcasts",
+      "id": "c100000667"
+    },
+    {
+      "title": "Fantasy & Science Fiction Podcasts",
+      "id": "c100001659"
+    },
+    {
+      "title": "History Podcasts",
+      "id": "c100000622"
+    },
+    {
+      "title": "Kids & Family Podcasts",
+      "id": "c100000888"
+    },
+    {
+      "title": "Media & Entertainment Podcasts",
+      "id": "c100000668"
+    },
+    {
+      "title": "Music Podcasts",
+      "id": "c100000086"
+    },
+    {
+      "title": "News & Politics Podcasts",
+      "id": "c100000657"
+    },
+    {
+      "title": "Paranormal Podcasts",
+      "id": "c100000663"
+    },
+    {
+      "title": "Philosophy Podcasts",
+      "id": "c100000890"
+    },
+    {
+      "title": "Radio Drama Podcasts",
+      "id": "c100000891"
+    },
+    {
+      "title": "Podcasts en Español",
+      "id": "c100002789"
+    },
+    {
+      "title": "Religion & Spirituality Podcasts",
+      "id": "c100000892"
+    },
+    {
+      "title": "Science Podcasts",
+      "id": "c100000662"
+    },
+    {
+      "title": "Sports & Recreation Podcasts",
+      "id": "c100001371"
+    },
+    {
+      "title": "Storytelling Podcasts",
+      "id": "c100000659"
+    },
+    {
+      "title": "Talk Show Replays",
+      "id": "c100001673"
+    },
+    {
+      "title": "Technology Podcasts",
+      "id": "c100000670"
+    },
+    {
+      "title": "Podcast Networks",
+      "id": "c100001658"
+    }
+  ]
+}
