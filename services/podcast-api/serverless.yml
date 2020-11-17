@@ -12,7 +12,7 @@ provider:
   name: aws
   runtime: nodejs12.x
   memorySize: 256
-  stage: ${opt:stage, 'dev'}
+  stage: ${opt:stage, 'prod'}
   region: us-west-1
 
   apiGateway:
@@ -53,6 +53,6 @@ functions:
     handler: src/saveEpisode.handler
     memorySize: 1024
     timeout: 120
-  
+
 custom:
-  stage: ${opt:stage, self:provider.stage}  
+  stage: ${opt:stage, self:provider.stage}

@@ -12,7 +12,7 @@ provider:
   name: aws
   runtime: nodejs12.x
   memorySize: 256
-  stage: ${opt:stage, 'dev'}
+  stage: ${opt:stage, 'prod'}
   region: us-west-1
   environment:
     TABLE_NAME: ${self:custom.RadioPodcastTable.name}
@@ -70,7 +70,7 @@ functions:
           cors: true
 
 custom:
-  stage: ${opt:stage, self:provider.stage}  
+  stage: ${opt:stage, self:provider.stage}
   RadioPodcastTable:
     name: !Ref RadioPodcastTable
     arn: !GetAtt RadioPodcastTable.Arn
@@ -81,19 +81,19 @@ resources:
 
   - Resources:
       RadioPodcastTable: ${file(../../resources/RadioPodcastTable.yml):RadioPodcastTable}
-  
+
   - Outputs:
       ApiGatewayRestApiId:
         Value:
           Ref: ApiGatewayRestApi
         Export:
           Name: ${self:custom.stage}-ExtApiGatewayRestApiId
-    
+
       ApiGatewayRestApiRootResourceId:
         Value:
-           Fn::GetAtt:
+          Fn::GetAtt:
             - ApiGatewayRestApi
-            - RootResourceId 
+            - RootResourceId
         Export:
           Name: ${self:custom.stage}-ExtApiGatewayRestApiRootResourceId
 
